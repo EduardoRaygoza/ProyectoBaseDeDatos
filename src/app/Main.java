@@ -1,47 +1,115 @@
 package app;
 
+import view.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.ResultSet;
-import view.Principal;
+import java.sql.PreparedStatement;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JOptionPane;
+import java.util.GregorianCalendar;
+import java.sql.Statement;
+import java.sql.ResultSet;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 public class Main implements ActionListener{
+    
+    private GregorianCalendar fecha;
+    private FrameMain frame;
+    private FramePrestamo framePrestamo;
+    private FrameAutor frameAutor;
+    private String connectionUrl;
+    private Connection conn;
+    private Statement stm;
+    private ResultSet rs;
+    private PreparedStatement prpstm;
+    private String sql, strFecha, dev;
+    
+    public Main(){
+        fecha = new GregorianCalendar();
+        strFecha = fecha.get(1)+"-"+fecha.get(2)+"-"+fecha.get(5);
+        fecha.add(GregorianCalendar.DAY_OF_MONTH, 7);
+        dev = fecha.get(1)+"-"+fecha.get(2)+"-"+fecha.get(5);
+        frame = new FrameMain();
+        connectionUrl = "jdbc:sqlserver://VIRTUALWINSRVR:1433;" +  
+            "databaseName=BiblioLeon;user=BiblioAdmin;password=ProyectoIntegrador18;";  
+        try {
+            conn = DriverManager.getConnection(connectionUrl);
+            stm = conn.createStatement();
+            System.out.println("Coneccion lista.");
+        } catch (SQLException ex) {
+            System.out.println(ex.getErrorCode()+"\n"+ex.getMessage());
+        }
+        
+        //Se agregan los listeners a los botones
+        frame.getBtnAceptarSocio().addActionListener(this);
+        frame.getBtnAceptarPrestamo().addActionListener(this);
+        frame.getItmPrestamos().addActionListener((ActionEvent e) -> {
+            framePrestamo = new FramePrestamo();
+            sql = "SELECT * FROM prestamo ORDER BY fecha_devolucion ASC";
+            try {
+                rs = stm.executeQuery(sql);
+                framePrestamo.setTableData(rs);
+                framePrestamo.setVisible(true);
+            } catch (SQLException ex) {
+            }
+        });
+        frame.getItmAutores().addActionListener((ActionEvent e) -> {
+            frameAutor = new FrameAutor();
+            sql = "SELECT * FROM autor";
+            try{
+                rs = stm.executeQuery(sql);
+                frameAutor.setTableData(rs);
+                frameAutor.setVisible(true);
+            }catch(SQLException ex){System.out.println(ex.getMessage());}
+        });        
+    }
+    
     public static void main(String[] args) {
-//        String connectionUrl = "jdbc:sqlserver://VIRTUALWINSRVR:1433;" +  
-//   "databaseName=BiblioLeon;user=BiblioAdmin;password=ProyectoIntegrador18;";  
-//        try{
-//            //Estableciendo la coneccion a la BDD
-//            System.out.println("Estableciendo coneccion...");
-//            Connection con = DriverManager.getConnection(connectionUrl);
-//            System.out.println("Coneccion establecida");
-//            
-//            //Ejecutando un Query
-//            Statement stm = con.createStatement();
-//            String sql = "SELECT * FROM Producto";
-//            ResultSet rs = stm.executeQuery(sql);
-//            
-//            //Extrayendo informacion del ResultSet
-//            while(rs.next()){
-//                String id = rs.getString("id_prod");
-//                String nombre = rs.getString("nombre_prod");
-//                System.out.println("ID: "+id+" Nombre: "+nombre);
-//            }
-//            con.close();
-//            stm.close();
-//            rs.close();
-//        }
-//        catch(SQLException e){
-//            System.out.println("Error no: "+e.getErrorCode()+" \n"+e.getMessage());
-//        }
-
-        new Principal();
+        new Main();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if((javax.swing.JButton)e.getSource() == frame.getBtnAceptarSocio()){
+            sql = "INSERT INTO Socio VALUES (?,?,?,?,?,?)";
+            try {
+                prpstm = conn.prepareStatement(sql);
+                prpstm.setString(1, frame.getTxtIDNuevoSocio().getText());
+                prpstm.setString(2, frame.getTxtCurp().getText());
+                prpstm.setString(3, frame.getTxtDireccion().getText());
+                prpstm.setString(4, frame.getTxtTelefono().getText());
+                prpstm.setString(5, frame.getTxtNombre().getText());
+                prpstm.setString(6, frame.getTxtApellido().getText());
+                prpstm.execute();
+                JOptionPane.showMessageDialog(null, "Nuevo Usuario registrado con exito", "Exito", JOptionPane.OK_OPTION);
+                frame.getTxtIDNuevoSocio().setText("S-0000");
+                frame.getTxtCurp().setText("");
+                frame.getTxtDireccion().setText("");
+                frame.getTxtTelefono().setText("");
+                frame.getTxtNombre().setText("");
+                frame.getTxtApellido().setText("");
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage()); 
+            }
+        }
+        else if ((javax.swing.JButton)e.getSource() == frame.getBtnAceptarPrestamo()){
+            sql = "INSERT INTO prestamo(numero_socio,id_volumen,fecha_prestamo,fecha_limite) VALUES (?,?,?,?)";
+            try{
+                prpstm = conn.prepareStatement(sql);
+                prpstm.setString(1, frame.getTxtIDSocio().getText());
+                prpstm.setString(2, frame.getTxtIDVolumen().getText());
+                prpstm.setString(3, strFecha);
+                prpstm.setString(4, dev);
+                prpstm.execute();
+                JOptionPane.showMessageDialog(null, "Nuevo Prestamo registrado con exito", "Exito", JOptionPane.OK_OPTION);
+                frame.getTxtIDSocio().setText("S-0000");
+                frame.getTxtIDVolumen().setText("V-0000");
+            } catch(SQLException ex){
+                System.out.println(ex.getMessage());
+            }
+        }
     }
 }
