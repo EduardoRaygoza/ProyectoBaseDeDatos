@@ -22,6 +22,10 @@ public class FrameAutor extends javax.swing.JFrame {
         initComponents();
         model = new DefaultTableModel();
         row = new String[4];
+        model.addColumn("ID Autor");
+        model.addColumn("Nombre");
+        model.addColumn("Apellido");
+        model.addColumn("Nacionalidad");
     }
 
     /**
@@ -128,12 +132,11 @@ public class FrameAutor extends javax.swing.JFrame {
     public javax.swing.JTextField getTxtNacionalidad(){return txtNacionalidad;}
     public javax.swing.JButton getBtnAceptarAutor(){return btnAceptarAutor;}
     
+    public void addRow(String[] row){
+        model.insertRow(0, row);
+    }
     
     public void setTableData(ResultSet rs){
-        model.addColumn("ID Autor");
-        model.addColumn("Nombre");
-        model.addColumn("Apellido");
-        model.addColumn("Nacionalidad");
         try{
             while(rs.next()){
                 for (int i = 0; i < 4; i++) {

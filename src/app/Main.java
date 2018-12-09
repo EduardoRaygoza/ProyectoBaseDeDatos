@@ -11,8 +11,6 @@ import javax.swing.JOptionPane;
 import java.util.GregorianCalendar;
 import java.sql.Statement;
 import java.sql.ResultSet;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 public class Main implements ActionListener{
     
@@ -26,6 +24,7 @@ public class Main implements ActionListener{
     private ResultSet rs;
     private PreparedStatement prpstm;
     private String sql, strFecha, dev;
+    private String[] row;
     
     public Main(){
         fecha = new GregorianCalendar();
@@ -33,6 +32,8 @@ public class Main implements ActionListener{
         fecha.add(GregorianCalendar.DAY_OF_MONTH, 7);
         dev = fecha.get(1)+"-"+fecha.get(2)+"-"+fecha.get(5);
         frame = new FrameMain();
+        framePrestamo = new FramePrestamo();
+        frameAutor = new FrameAutor();
         connectionUrl = "jdbc:sqlserver://VIRTUALWINSRVR:1433;" +  
             "databaseName=BiblioLeon;user=BiblioAdmin;password=ProyectoIntegrador18;";  
         try {
@@ -46,8 +47,8 @@ public class Main implements ActionListener{
         //Se agregan los listeners a los botones
         frame.getBtnAceptarSocio().addActionListener(this);
         frame.getBtnAceptarPrestamo().addActionListener(this);
+        frameAutor.getBtnAceptarAutor().addActionListener(this);
         frame.getItmPrestamos().addActionListener((ActionEvent e) -> {
-            framePrestamo = new FramePrestamo();
             sql = "SELECT * FROM prestamo ORDER BY fecha_devolucion ASC";
             try {
                 rs = stm.executeQuery(sql);
@@ -57,7 +58,6 @@ public class Main implements ActionListener{
             }
         });
         frame.getItmAutores().addActionListener((ActionEvent e) -> {
-            frameAutor = new FrameAutor();
             sql = "SELECT * FROM autor";
             try{
                 rs = stm.executeQuery(sql);
@@ -108,6 +108,29 @@ public class Main implements ActionListener{
                 frame.getTxtIDSocio().setText("S-0000");
                 frame.getTxtIDVolumen().setText("V-0000");
             } catch(SQLException ex){
+                System.out.println(ex.getMessage());
+            }
+        }
+        else if ((javax.swing.JButton) e.getSource() == frameAutor.getBtnAceptarAutor()){
+            sql = "INSERT INTO autor VALUES (?,?,?,?)";
+            try{
+                row = new String[4];
+                row[0] = frameAutor.getTxtIDAutor().getText();
+                row[1] = frameAutor.getTxtNombre().getText();
+                row[2] = frameAutor.getTxtApellido().getText();
+                row[3] = frameAutor.getTxtNacionalidad().getText();
+                prpstm = conn.prepareStatement(sql);
+                for (int i = 1; i < 5; i++) {
+                    prpstm.setString(i, row[i-1]);
+                }
+                prpstm.execute();
+                JOptionPane.showMessageDialog(null, "Nuevo autor registrado con exito", "Exito", JOptionPane.OK_OPTION);
+                frameAutor.addRow(row);
+                frameAutor.getTxtIDAutor().setText("");
+                frameAutor.getTxtNombre().setText("");
+                frameAutor.getTxtApellido().setText("");
+                frameAutor.getTxtNacionalidad().setText("");
+            }catch(SQLException ex){
                 System.out.println(ex.getMessage());
             }
         }
