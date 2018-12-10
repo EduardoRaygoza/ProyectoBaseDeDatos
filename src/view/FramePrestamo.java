@@ -116,6 +116,7 @@ public class FramePrestamo extends javax.swing.JFrame {
     }
     
     public void setTableData(ResultSet rs){
+        deleteRows();
         try{
             while(rs.next()){
                 for (int i = 0; i < 5; i++) {
@@ -129,6 +130,14 @@ public class FramePrestamo extends javax.swing.JFrame {
             }
         }catch(SQLException ex){System.out.println(ex.getMessage());}
         jTable1.setModel(modelAll);
+    }
+    
+    private void deleteRows(){
+        modelActivo = new DefaultTableModel();
+        modelAll = new DefaultTableModel();
+        setTableColumns(modelActivo);
+        setTableColumns(modelAll);
+        System.gc();
     }
     
     public javax.swing.JCheckBox getChkActivos(){return chkActivos;}

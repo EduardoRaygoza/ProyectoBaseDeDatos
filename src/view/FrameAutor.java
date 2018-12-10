@@ -21,11 +21,8 @@ public class FrameAutor extends javax.swing.JFrame {
     public FrameAutor() {
         initComponents();
         model = new DefaultTableModel();
+        setTableColumns();
         row = new String[4];
-        model.addColumn("ID Autor");
-        model.addColumn("Nombre");
-        model.addColumn("Apellido");
-        model.addColumn("Nacionalidad");
     }
 
     /**
@@ -132,11 +129,12 @@ public class FrameAutor extends javax.swing.JFrame {
     public javax.swing.JTextField getTxtNacionalidad(){return txtNacionalidad;}
     public javax.swing.JButton getBtnAceptarAutor(){return btnAceptarAutor;}
     
-    public void addRow(String[] row){
+    public void addRow(Object[] row){
         model.insertRow(0, row);
     }
     
     public void setTableData(ResultSet rs){
+        deleteRows();
         try{
             while(rs.next()){
                 for (int i = 0; i < 4; i++) {
@@ -146,6 +144,19 @@ public class FrameAutor extends javax.swing.JFrame {
             }
         }catch(SQLException ex){}
         jTable1.setModel(model);
+    }
+    
+    public void setTableColumns(){
+        model.addColumn("ID Autor");
+        model.addColumn("Nombre");
+        model.addColumn("Apellido");
+        model.addColumn("Nacionalidad");
+    }
+    
+    private void deleteRows(){
+        model = new DefaultTableModel();
+        setTableColumns();
+        System.gc();
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

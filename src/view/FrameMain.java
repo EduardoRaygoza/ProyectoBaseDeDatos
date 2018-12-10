@@ -35,6 +35,10 @@ public class FrameMain extends javax.swing.JFrame {
         txtIDSocio = new javax.swing.JTextField();
         txtIDVolumen = new javax.swing.JTextField();
         btnAceptarPrestamo = new javax.swing.JButton();
+        jLabel11 = new javax.swing.JLabel();
+        txtDevVol = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        btnDevolucion = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -56,6 +60,7 @@ public class FrameMain extends javax.swing.JFrame {
         itmAutores = new javax.swing.JMenuItem();
         itmLibros = new javax.swing.JMenuItem();
         itmVolumenes = new javax.swing.JMenuItem();
+        itmSocios = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         itmProyectoInfo = new javax.swing.JMenuItem();
 
@@ -74,6 +79,12 @@ public class FrameMain extends javax.swing.JFrame {
             }
         });
 
+        jLabel11.setText("Devolucion");
+
+        jLabel12.setText("ID Volumen:");
+
+        btnDevolucion.setText("Devolver volumen");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -90,26 +101,48 @@ public class FrameMain extends javax.swing.JFrame {
                         .addComponent(jLabel3)
                         .addGap(18, 18, 18)
                         .addComponent(txtIDVolumen)))
-                .addGap(18, 18, 18)
-                .addComponent(btnAceptarPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(btnAceptarPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnDevolucion)
+                        .addContainerGap(119, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel11)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel12)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtDevVol, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(98, 98, 98))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel11))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel2)
+                                .addComponent(txtIDSocio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel3)
+                                .addComponent(txtIDVolumen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnAceptarPrestamo, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(txtIDSocio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(txtIDVolumen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(btnAceptarPrestamo, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE))
+                            .addComponent(txtDevVol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel12))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnDevolucion)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -171,8 +204,8 @@ public class FrameMain extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtIDNuevoSocio, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
-                .addComponent(btnAceptarSocio, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(btnAceptarSocio)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -180,7 +213,7 @@ public class FrameMain extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
@@ -198,9 +231,9 @@ public class FrameMain extends javax.swing.JFrame {
                             .addComponent(jLabel7)
                             .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel10)
-                            .addComponent(txtIDNuevoSocio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(15, Short.MAX_VALUE))
-                    .addComponent(btnAceptarSocio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(txtIDNuevoSocio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(btnAceptarSocio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
 
         jMenu1.setText("Archivo");
@@ -221,6 +254,9 @@ public class FrameMain extends javax.swing.JFrame {
 
         itmVolumenes.setText("Volumenes");
         jMenu1.add(itmVolumenes);
+
+        itmSocios.setText("Socios");
+        jMenu1.add(itmSocios);
 
         jMenuBar1.add(jMenu1);
 
@@ -270,27 +306,33 @@ public class FrameMain extends javax.swing.JFrame {
     public javax.swing.JTextField getTxtTelefono(){return txtTelefono;}
     public javax.swing.JTextField getTxtNombre(){return txtNombre;}
     public javax.swing.JTextField getTxtIDSocio(){return txtIDSocio;}
-    public javax.swing.JTextField getTxtIDVolumen(){return txtIDVolumen;}
+    public javax.swing.JTextField getTxtIDVolumen(){return txtDevVol;}
     public javax.swing.JTextField getTxtIDNuevoSocio(){return txtIDNuevoSocio;}
+    public javax.swing.JTextField getTxtVolumen(){return txtIDVolumen;}
     public javax.swing.JButton getBtnAceptarSocio(){return btnAceptarSocio;}
     public javax.swing.JButton getBtnAceptarPrestamo(){return btnAceptarPrestamo;}
+    public javax.swing.JButton getBtnDevolucion(){return btnDevolucion;}
     public javax.swing.JMenuItem getItmPrestamos(){return itmPrestamos;}
     public javax.swing.JMenuItem getItmAutores(){return itmAutores;}
     public javax.swing.JMenuItem getItmLibros(){return itmLibros;}
     public javax.swing.JMenuItem getItmVolumenes(){return itmVolumenes;}
     public javax.swing.JMenuItem getItmProyecto(){return itmProyectoInfo;}
+    public javax.swing.JMenuItem getItmSocios(){return itmSocios;}
     
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptarPrestamo;
     private javax.swing.JButton btnAceptarSocio;
+    private javax.swing.JButton btnDevolucion;
     private javax.swing.JMenuItem itmAutores;
     private javax.swing.JMenuItem itmLibros;
     private javax.swing.JMenuItem itmPrestamos;
     private javax.swing.JMenuItem itmProyectoInfo;
+    private javax.swing.JMenuItem itmSocios;
     private javax.swing.JMenuItem itmVolumenes;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -306,6 +348,7 @@ public class FrameMain extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtCurp;
+    private javax.swing.JTextField txtDevVol;
     private javax.swing.JTextField txtDireccion;
     private javax.swing.JTextField txtIDNuevoSocio;
     private javax.swing.JTextField txtIDSocio;
